@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+<link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+  
+<body>
+  <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      
+       {% for i in article %}
+  <div class="row">
+  <div class="col-md-12">
+    <img class="img-responsive" src="{{i['img_url']}}"></img>
+  </div>
+
+  </div>
+    
+    {% endfor %}
+    </div>
+    </div>
+  
+  </div>
+</body>
+</html>
