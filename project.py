@@ -5,6 +5,7 @@ import logging
 from operator import itemgetter
 from collections import OrderedDict
 import requests
+import pyrebase
 import json
 import datetime
 import time
@@ -17,9 +18,12 @@ UPLOAD_FOLDER = 'static/uploads/'
 
 # Set allowable MIME Types for upload
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'zip']
+
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -31,61 +35,58 @@ app.config['SITE'] = "http://0.0.0.0:5000/"
 app.config['DEBUG'] = True
 
 # firebase db reference
-db = 'https://newstestapp.firebaseio.com'
+db = pyrebase.Firebase('https://newstestapp.firebaseio.com', 'WQJUSvWmnpraVQROTBrKQaubyCqx9UQCrWZmv2ul')
 
 # List all assets
 @app.route('/')
 def index():
+    results = db.sort_by_last('articles', 'timeOfApproval', 0, 10, None)
+    time_now = time.time() * 1000
+    time_now = int(time_now)
+    for i in results:
+        time_dif = time_now - i['timeOfApproval']
+        if time_dif < 60000:
+            seconds = int(time_dif / 1000)
+            i['timeDif'] = str(seconds)+" seconds ago."
+        elif time_dif < 3600000 > 60000:
+            minutes = int(time_dif / 60000)
+            i['timeDif'] = str(minutes)+" minutes ago."
+        elif time_dif < 7200000 > 3600000:
+            i['timeDif'] = "1 hour ago."
+        elif time_dif < 86400000 > 7200000:
+            hours = time_dif / 3600000
+            hours = int(hours)
+            i['timeDif'] = str(hours)+" hours ago."
+        elif time_dif < 604800000 > 86400000:
+            days = time_dif / 86400000
+            days = int(days)
+            i['timeDif'] = str(days)+" days ago."
+        elif time_dif < 31449600000 > 604800000:
+            weeks = time_dif / 604800000
+            weeks = int(weeks)
+            i['timeDif'] = str(weeks)+" weeks ago."
+        elif time_dif > 31449600000:
+            years = time_dif / 31449600000
+            years = int(years)
+            i['timeDif'] = str(years)+" years ago."
 
-    # Get articles
-    ref = db+'/articles.json?orderBy="time"&limitToFirst=10'
 
-    # Jsonify response object
-    articles = requests.get(ref).json()
+    return render_template('index.html', articles=results, time=time_now)
 
-    # set up list
-    this_list = []
-
-    # put dictionary in list for sorting
-    for i in articles:
-        # add ID key and assign id
-        articles[i]["id"] = i
-        this_list.append(articles[i])
-
-    # sort list by time (datetime)
-    this_list = sorted(this_list, key=itemgetter("time"))
-
-    return render_template('index.html', articles=this_list)
 
 @app.route('/article/<article_id>/<article_tag_line>')
 def article(article_id, article_tag_line):
 
-        article_ref = db+'/articles/'+article_id+'.json'
+    one_article = db.one("articles", article_id, None)
 
-        article = requests.get(article_ref).json()
+    return render_template('article.html', article=one_article)
 
-        this_list = []
-
-        article["id"] = article_id
-        this_list.append(article)
-
-        return render_template('article.html', article=this_list)
 
 @app.route('/news/<page_number>/<last_article_date>')
 def pagination(page_number, last_article_date):
-
-    ref = db+'/articles.json?orderBy="time"&startAt='+last_article_date+'&limitToFirst=10'
-
-    articles = requests.get(ref).json()
-
-    this_list = []
-    for i in articles:
-        articles[i]["id"] = i
-        this_list.append(articles[i])
-
-    this_list = sorted(this_list, key=itemgetter("time"))
-
-    return render_template('index.html', articles=this_list)
+    print(last_article_date)
+    articles = db.sort_by_last('articles', 'timeOfApproval', last_article_date, 10, None)
+    return render_template('index.html', articles=articles)
 
 
 if __name__ == '__main__':

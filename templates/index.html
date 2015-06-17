@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
-<link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
 </head>
-  
+
 <body>
-  <div class="container">
-    
-  <div class="row">
-    <div class="col-md-6">
-  {% for i in articles %}
-  <div class="row">
-  <div class="col-md-4">
-    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}"><img class="img-responsive" src="{{i['img_url']}}"></img></a> 
-  </div>
-  <div class="col-md-8">
+<div class="container">
+
     <div class="row">
-      <div class="col-md-12">
-      <p>{{i['tag_line']}}</p>
-        <p>{{i['time']}}</p>
-      </div>
+        <div class="col-md-6">
+            {% for i in articles %}
+            {% if i['timeOfApproval'] != 0 %}
+            <div class="row">
+                <div class="col-md-4 article-list">
+                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}"><img
+                            class="img-responsive" src="{{i['img_url']}}"></img></a>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>{{i['tag_line']}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <i class="fa fa-pencil">Author</i>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-clock-o">{{i['timeDif']}}</i>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fa fa-comment">Comments</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
     </div>
-    <div class="row">
-      <div class="col-md-4">
-      <i class="fa fa-pencil">Author</i>
-      </div>
-      <div class="col-md-4">
-      <i class="fa fa-clock-o">A minute ago</i>
-      </div>
-      <div class="col-md-4">
-      <i class="fa fa-comment">Comments</i>
-      </div>
-    </div>
-  </div>
-  </div>
-  {% endfor %}
-    </div>
-    </div>
-  <a href="{{ url_for('pagination', page_number=2, last_article_date=articles[-1]['time'])}}">Next Page</a>
-  </div>
+    <a href="{{ url_for('pagination', page_number=2, last_article_date=articles[-1]['timeOfApproval'])}}">Next Page</a>
+</div>
 </body>
 </html>
