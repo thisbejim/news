@@ -1,42 +1,174 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+    <meta name="viewport" content="initial-scale=1">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,400' rel='stylesheet' type='text/css'>
     <link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
     <link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
 </head>
 
 <body>
-<div class="container">
 
-    <div class="row">
-        <div class="col-md-6">
+      <div class="nav visible-md visible-lg">
+        <div class="container">
+        <div class="row">
+          <div class="col-md-3">LOGO</div>
+          <div class="col-md-1"><span class="nav-item">Movies</span></div>
+          <div class="col-md-1"><span class="nav-item">Gaming</span></div>
+          <div class="col-md-1"><span class="nav-item">News</span></div>
+          <div class="col-md-1"><span class="nav-item">Culture</span></div>
+        </div>
+        </div>
+      </div>
+  
+      <div class="nav visible-sm visible-xs">
+        <div class="container">
+        <div class="row">
+          <div class="col-xs-3">LOGO</div>
+          <div class="col-xs-2"><span class="nav-item">Movies</span></div>
+          <div class="col-xs-2"><span class="nav-item">Gaming</span></div>
+          <div class="col-xs-2"><span class="nav-item">News</span></div>
+          <div class="col-xs-2"><span class="nav-item">Culture</span></div>
+        </div>
+        </div>
+      </div>
+  
+<div class="container">
+  
+    
+  
+  <div class="divider"></div>
+  
+    <div class="row visible-md visible-lg">
+      <div class="col-md-4">
+        <div class="row article-container">
+          <div class="col-md-12 remove-padding">
+            <a href="{{ url_for('article', article_id=featured_article['id'], article_tag_line=featured_article['tag_line'])}}">
+              <img height="270" width="270"  src="{{featured_article['img_url']}}"></img>
+              <h2 class="caption">{{featured_article['tag_line']}}</h2>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+      {% for i in popular_articles %}
+        <div class="row article-container">
+          <div class="col-md-4 remove-padding">
+            <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+              <img class="img-responsive" width="80" height="80" src="{{i['img_url']}}"></img>
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="article-title">{{i['tag_line']}}</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+      <div class="col-md-4">
+        <div class="row article-container">
+          <div class="col-md-12 remove-padding">
+            <a href="{{ url_for('article', article_id=featured_article['id'], article_tag_line=featured_article['tag_line'])}}">
+              <img height="270" width="270" src="{{featured_article['img_url']}}"></img>
+            </a>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+    // new articles
+    <div class="row visible-md visible-lg">
+      <div class="col-md-3">
+      </div>
+        <div class="col-md-5">
             {% for i in articles %}
             {% if i['timeOfApproval'] != 0 %}
-            <div class="row">
-                <div class="col-md-4 article-list">
-                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}"><img
-                            class="img-responsive" src="{{i['img_url']}}"></img></a>
+            <div class="row article-container">
+                <div class="col-md-4 remove-padding">
+                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                      <img class="img-responsive" src="{{i['img_url']}}"></img>
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col-md-12">
-                            <p>{{i['tag_line']}}</p>
-                            <p>By Author</p>
+                            <h2 class="article-title">{{i['tag_line']}}</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <p>{{i['timeDif']}}</p>
-                        </div>
-                        <div class="col-md-6">
-
+                        <div class="col-md-12">
+                            <p>{{i['timeDif']}} by <span class="article-author">Author.</span></p>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="row visible-sm">
+      <div class="col-sm-2">
+      </div>
+        <div class="col-sm-8">
+            {% for i in articles %}
+            {% if i['timeOfApproval'] != 0 %}
+            <div class="row article-container">
+                <div class="col-sm-4 remove-padding">
+                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                      <img class="img-responsive" src="{{i['img_url']}}"></img>
+                    </a>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h2 class="article-title">{{i['tag_line']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>{{i['timeDif']}} by <span class="article-author">Author.</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row visible-xs">
+        <div class="col-xs-12">
+            {% for i in articles %}
+            {% if i['timeOfApproval'] != 0 %}
+            <div class="row article-container">
+              <div class="col-xs-6">
+                <div class="row">
+                  <div class="col-xs-12 remove-padding">
+                      <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                        <img class="img-responsive" src="{{i['img_url']}}"></img>
+                      </a>
+                  </div>
+                </div>
+              </div>
+                  <div class="col-xs-6">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="article-title">{{i['tag_line']}}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p>{{i['timeDif']}} by <span class="article-author">Author.</span></p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
             {% endif %}
             {% endfor %}
         </div>
