@@ -45,9 +45,9 @@
       <div class="col-md-4">
         <div class="row feature-container">
           <div class="col-md-12 remove-padding">
-            <a href="{{ url_for('article', article_id=featured_article['id'], article_tag_line=featured_article['tag_line'])}}">
-              <img class="img-responsive" style="margin-right: 0"  src="{{featured_article['img_url']}}"></img>
-              <h2 class="caption">{{featured_article['tag_line']}}</h2>
+            <a href="{{ url_for('article', article_id=featured_article_one['id'], article_tag_line=featured_article_one['url_safe'])}}">
+              <img class="img-responsive" src="{{featured_article_one['img_url']}}"></img>
+              <h2 class="caption">{{featured_article_one['tag_line']}}</h2>
             </a>
           </div>
         </div>
@@ -56,7 +56,7 @@
       {% for i in popular_articles %}
         <div class="row article-container">
           <div class="col-md-4 remove-padding">
-            <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+            <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
               <img class="img-responsive" width="90" height="90" src="{{i['img_url']}}"></img>
             </a>
           </div>
@@ -73,8 +73,9 @@
       <div class="col-md-4">
         <div class="row feature-container">
           <div class="col-md-12 remove-padding">
-            <a href="{{ url_for('article', article_id=featured_article['id'], article_tag_line=featured_article['tag_line'])}}">
-              <img class="img-responsive" src="{{featured_article['img_url']}}"></img>
+            <a href="{{ url_for('article', article_id=featured_article_two['id'], article_tag_line=featured_article_two['url_safe'])}}">
+              <img class="img-responsive" src="{{featured_article_two['img_url']}}"></img>
+              <h2 class="caption">{{featured_article_two['tag_line']}}</h2>
             </a>
           </div>
         </div>
@@ -121,10 +122,10 @@
         <div class="col-md-6">
           {% for i in articles %}
             {% if i['timeOfApproval'] != 0 and index % 2 == 0 %}
-              <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+              <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
               <div class="row article-container">
                 <div class="col-md-4 remove-padding">
-                  <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                  <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
                     <img class="img-responsive" src="{{i['img_url']}}"></img>
                     <p class="category-overlay">Movies</p>
                   </a>
@@ -132,7 +133,7 @@
                 <div class="col-md-8">
                   <div class="row">
                     <div class="col-md-12">
-                      <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                      <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
                         <h3 class="article-title">{{i['tag_line']}}</h3>
                       </a>
                     </div>
@@ -162,7 +163,7 @@
             {% if i['timeOfApproval'] != 0 %}
             <div class="row article-container">
                 <div class="col-sm-4 remove-padding">
-                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
                       <img class="img-responsive" src="{{i['img_url']}}"></img>
                     </a>
                 </div>

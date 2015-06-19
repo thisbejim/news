@@ -47,22 +47,19 @@ def index():
     # add time difference and urlsafe tag_line
     results = prep(results)
 
-    for i in results:
-        url_safe = i['tag_line']
-        url_safe = ''.join(e for e in url_safe if e.isalnum())
-        i['url_safe'] = url_safe
-
     # get popular articles
-    popular_articles = db.sort_by_last('articles', 'clicks', 0, 4, None)
-
+    popular_articles = db.sort_by_last('articles', 'clicks', 0, 5, None)
+    popular_articles = prep(popular_articles)
     # get featured article
-    featured_article = popular_articles[0]
+    featured_article_one = popular_articles[0]
+    featured_article_two = popular_articles[1]
 
     # remove featured article from popular articles
     del popular_articles[0]
+    del popular_articles[0]
 
     return render_template('index.html', articles=results, popular_articles=popular_articles,
-                           featured_article=featured_article)
+                           featured_article_one=featured_article_one, featured_article_two=featured_article_two)
 
 
 @app.route('/article/<article_id>/<article_tag_line>')
@@ -75,11 +72,11 @@ def article(article_id, article_tag_line):
     clicks = None
     for i in one_article:
         clicks = int(i['clicks']) + 1
-    clicks = '{ "clicks": " %s" }' % clicks
+    clicks = '{"clicks": %s }' % clicks
 
     # patch clicks
-    requests.patch('https://newstestapp.firebaseio.com/articles/'+article_id+'.json', clicks)
-    
+    db.patch('articles', article_id, clicks, None)
+
     return render_template('article.html', article=one_article)
 
 
