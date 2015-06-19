@@ -42,10 +42,85 @@ db = pyrebase.Firebase('https://newstestapp.firebaseio.com', 'WQJUSvWmnpraVQROTB
 def index():
 
     # get new articles
-    results = db.sort_by_last('articles', 'timeOfApproval', 0, 10, None)
+    results = db.sort_by_last('articles', 'timeOfApproval', 0, 20, None)
+
+    # add time difference and urlsafe tag_line
+    results = prep(results)
+
+    for i in results:
+        url_safe = i['tag_line']
+        url_safe = ''.join(e for e in url_safe if e.isalnum())
+        i['url_safe'] = url_safe
+
+    # get popular articles
+    popular_articles = db.sort_by_last('articles', 'clicks', 0, 4, None)
+
+    # get featured article
+    featured_article = popular_articles[0]
+
+    # remove featured article from popular articles
+    del popular_articles[0]
+
+    return render_template('index.html', articles=results, popular_articles=popular_articles,
+                           featured_article=featured_article)
+
+
+@app.route('/article/<article_id>/<article_tag_line>')
+def article(article_id, article_tag_line):
+
+    # get article
+    one_article = db.one('articles', article_id, None)
+
+    # count and add clicks
+    clicks = None
+    for i in one_article:
+        clicks = int(i['clicks']) + 1
+    clicks = '{ "clicks": " %s" }' % clicks
+
+    # patch clicks
+    requests.patch('https://newstestapp.firebaseio.com/articles/'+article_id+'.json', clicks)
+    
+    return render_template('article.html', article=one_article)
+
+
+@app.route('/news/<page_number>/<last_article_date>')
+def pagination(page_number, last_article_date):
+
+    results = db.sort_by_last('articles', 'timeOfApproval', last_article_date, 10, None)
+
+    # add time differences
+    results = prep(results)
+
+    # get popular articles
+    popular_articles = db.sort_by_last('articles', 'clicks', 0, 4, None)
+
+    # get featured article
+    featured_article = popular_articles[0]
+
+    # remove featured article from popular articles
+    del popular_articles[0]
+
+    return render_template('index.html', articles=results, popular_articles=popular_articles,
+                           featured_article=featured_article)
+
+
+@app.template_filter('debug')
+def debug(text):
+    print(text)
+    return ''
+
+
+def prep(results):
     time_now = time.time() * 1000
     time_now = int(time_now)
     for i in results:
+
+        # add url safe tag_line
+        url_safe = i['tag_line']
+        url_safe = ''.join(e for e in url_safe if e.isalnum())
+        i['url_safe'] = url_safe
+
+        # add time difference
         time_dif = time_now - i['timeOfApproval']
         if time_dif < 60000:
             seconds = int(time_dif / 1000)
@@ -54,7 +129,7 @@ def index():
             minutes = int(time_dif / 60000)
             i['timeDif'] = str(minutes)+" minutes ago"
         elif time_dif < 7200000 > 3600000:
-            i['timeDif'] = "1 hour ago."
+            i['timeDif'] = "1 hour ago"
         elif time_dif < 86400000 > 7200000:
             hours = time_dif / 3600000
             hours = int(hours)
@@ -71,30 +146,7 @@ def index():
             years = time_dif / 31449600000
             years = int(years)
             i['timeDif'] = str(years)+" years ago"
-
-    # get popular articles
-    popular_articles = db.sort_by_last('articles', 'clicks', 0, 4, None)
-
-    featured_article = popular_articles[0]
-    del popular_articles[0]
-
-    return render_template('index.html', articles=results, popular_articles=popular_articles,
-                           featured_article=featured_article, time=time_now)
-
-
-@app.route('/article/<article_id>/<article_tag_line>')
-def article(article_id, article_tag_line):
-
-    one_article = db.one("articles", article_id, None)
-
-    return render_template('article.html', article=one_article)
-
-
-@app.route('/news/<page_number>/<last_article_date>')
-def pagination(page_number, last_article_date):
-    print(last_article_date)
-    articles = db.sort_by_last('articles', 'timeOfApproval', last_article_date, 10, None)
-    return render_template('index.html', articles=articles)
+    return results
 
 
 if __name__ == '__main__':
