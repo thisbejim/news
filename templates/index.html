@@ -94,7 +94,7 @@
                     <div class="col-md-4 remove-padding">
                       <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
                         <img class="img-responsive" src="{{i['img_url']}}"></img>
-                        <p class="category-overlay">Movies</p>
+                        <p class="category-overlay">{{i['articleCategory']}}</p>
                       </a>
                     </div>
                     <div class="col-md-8">
@@ -127,7 +127,7 @@
                 <div class="col-md-4 remove-padding">
                   <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
                     <img class="img-responsive" src="{{i['img_url']}}"></img>
-                    <p class="category-overlay">Movies</p>
+                    <p class="category-overlay">{{i['articleCategory']}}</p>
                   </a>
                 </div>
                 <div class="col-md-8">
