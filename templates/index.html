@@ -1,246 +1,204 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="initial-scale=1">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300,400' rel='stylesheet' type='text/css'>
-    <link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
-    <link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
-</head>
+{% extends "base.html" %}
+{% block content %}
 
-<body>
-
-      <div class="nav visible-md visible-lg">
-        <div class="container">
-        <div class="row">
-          <div class="col-md-3">LOGO</div>
-          <div class="col-md-1"><span class="nav-item">Movies</span></div>
-          <div class="col-md-1"><span class="nav-item">Gaming</span></div>
-          <div class="col-md-1"><span class="nav-item">News</span></div>
-          <div class="col-md-1"><span class="nav-item">Culture</span></div>
-        </div>
-        </div>
-      </div>
-  
-      <div class="nav visible-sm visible-xs">
-        <div class="container">
-        <div class="row">
-          <div class="col-xs-3">LOGO</div>
-          <div class="col-xs-2"><span class="nav-item">Movies</span></div>
-          <div class="col-xs-2"><span class="nav-item">Gaming</span></div>
-          <div class="col-xs-2"><span class="nav-item">News</span></div>
-          <div class="col-xs-2"><span class="nav-item">Culture</span></div>
-        </div>
-        </div>
-      </div>
-  
-<div class="container">
-  
-    
-  
-  <div class="divider"></div>
-    
-    <!--Featured Articles-->
-    <div class="row visible-md visible-lg">
-      <div class="col-md-4">
-        <div class="row feature-container">
-          <div class="col-md-12 remove-padding">
-            <a href="{{ url_for('article', article_id=featured_article_one['id'], article_tag_line=featured_article_one['url_safe'])}}">
-              <img class="img-responsive" src="{{featured_article_one['img_url']}}"></img>
-              <h2 class="caption">{{featured_article_one['tag_line']}}</h2>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-      {% for i in popular_articles %}
-        <div class="row article-container">
-          <div class="col-md-4 remove-padding">
-            <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-              <img class="img-responsive" width="90" height="90" src="{{i['img_url']}}"></img>
-            </a>
-          </div>
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-12">
-                <h2 class="article-title">{{i['tag_line']}}</h2>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-      </div>
-      <div class="col-md-4">
-        <div class="row feature-container">
-          <div class="col-md-12 remove-padding">
-            <a href="{{ url_for('article', article_id=featured_article_two['id'], article_tag_line=featured_article_two['url_safe'])}}">
-              <img class="img-responsive" src="{{featured_article_two['img_url']}}"></img>
-              <h2 class="caption">{{featured_article_two['tag_line']}}</h2>
-            </a>
-          </div>
-        </div>
-      </div>
-  </div>
-  
-    <!--New Articles-->
-
-    <!--Medium and Large Layout-->
-    <div class="row visible-md visible-lg">
-        <div class="col-md-6">
-            {% set index = 1 %}
-              {% for i in articles %}
-                {% if i['timeOfApproval'] != 0 and (index % 2) != 0 %}
-                  <div class="row article-container">
-                    <div class="col-md-4 remove-padding">
-                      <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-                        <img class="img-responsive" src="{{i['img_url']}}"></img>
-                        <p class="category-overlay">{{i['articleCategory']}}</p>
-                      </a>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-                            <h3 class="article-title">{{i['tag_line']}}</h3>
-                          </a>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <p class="author-margin">{{i['timeDif']}} by <span class="article-author">Author.</span></p>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                {{ index|debug }}
-                {% set index = index + 1 %}
-                {% else %}
-                  {% set index = index + 1 %}
-            {% endif %}
-          {% endfor %}
-        </div>
-        <div class="col-md-6">
-          {% for i in articles %}
-            {% if i['timeOfApproval'] != 0 and index % 2 == 0 %}
-              <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-              <div class="row article-container">
-                <div class="col-md-4 remove-padding">
-                  <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-                    <img class="img-responsive" src="{{i['img_url']}}"></img>
-                    <p class="category-overlay">{{i['articleCategory']}}</p>
-                  </a>
-                </div>
-                <div class="col-md-8">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-                        <h3 class="article-title">{{i['tag_line']}}</h3>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p class="author-margin">{{i['timeDif']}} by <span class="article-author">Author.</span></p>
-                    </div>
-                  </div>
-                </div>
-            </div>
-            {{ index|debug }}
-            {% set index = index + 1 %}
-          {% else %}
-            {% set index = index + 1 %}
-          {% endif %}
-        {% endfor %}
-        </div>
-    </div>
-
-    <!--Small Layout-->
-    <div class="row visible-sm">
-      <div class="col-sm-2">
-      </div>
-        <div class="col-sm-8">
-            {% for i in articles %}
-            {% if i['timeOfApproval'] != 0 %}
-            <div class="row article-container">
-                <div class="col-sm-4 remove-padding">
-                    <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
-                      <img class="img-responsive" src="{{i['img_url']}}"></img>
-                    </a>
-                </div>
-                <div class="col-sm-8">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2 class="article-title">{{i['tag_line']}}</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>{{i['timeDif']}} by <span class="article-author">Author.</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-    
-    <!--Extra Small Layout-->
-    <div class="row visible-xs">
-        <div class="col-xs-6">
-            {% set index = 1 %}
-              {% for i in articles %}
-                {% if i['timeOfApproval'] != 0 and (index % 2) != 0 %}
-                  <div class="row article-container">
-                    <div clas="col-xs-12">
-                    <div class="row">
-                      <div class="col-xs-12 remove-padding">
-                        <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
-                          <img class="img-responsive" src="{{i['img_url']}}"></img>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="article-title small-padding">{{i['tag_line']}}</h2>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                {{ index|debug }}
-                {% set index = index + 1 %}
-                {% else %}
-                  {% set index = index + 1 %}
-            {% endif %}
-          {% endfor %}
-        </div>
-        <div class="col-xs-6">
-          {% for i in articles %}
-            {% if i['timeOfApproval'] != 0 and index % 2 == 0 %}
-              <div class="row article-container">
-                    <div clas="col-xs-12">
-                    <div class="row">
-                      <div class="col-xs-12 remove-padding">
-                        <a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
-                          <img class="img-responsive" src="{{i['img_url']}}"></img>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h2 class="article-title small-padding">{{i['tag_line']}}</h2>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            {{ index|debug }}
-            {% set index = index + 1 %}
-          {% else %}
-            {% set index = index + 1 %}
-          {% endif %}
-        {% endfor %}
-    </div>
-    <a href="{{ url_for('pagination', page_number=2, last_article_date=articles[-1]['timeOfApproval'])}}">Next Page</a>
+<!--Featured Articles-->
+<div class="row visible-md visible-lg">
+	<div class="col-md-4">
+		<div class="row feature-container">
+			<div class="col-md-12 remove-padding">
+				<a href="{{ url_for('article', article_id=featured_article_one['id'], article_tag_line=featured_article_one['url_safe'])}}">
+					<img class="img-responsive" src="{{featured_article_one['img_url']}}"></img>
+					<h2 class="caption">{{featured_article_one['tag_line']}}</h2>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		{% for i in popular_articles %}
+		<div class="row article-container">
+			<div class="col-md-4 remove-padding">
+				<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+					<img class="img-responsive" width="90" height="90" src="{{i['img_url']}}"></img>
+				</a>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<h2 class="article-title">{{i['tag_line']}}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="col-md-4">
+		<div class="row feature-container">
+			<div class="col-md-12 remove-padding">
+				<a href="{{ url_for('article', article_id=featured_article_two['id'], article_tag_line=featured_article_two['url_safe'])}}">
+					<img class="img-responsive" src="{{featured_article_two['img_url']}}"></img>
+					<h2 class="caption">{{featured_article_two['tag_line']}}</h2>
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
-</body>
-</html>
+
+<!--New Articles-->
+
+<!--Medium and Large Layout-->
+<div class="row visible-md visible-lg">
+	<div class="col-md-6">
+		{% set index = 1 %}
+		{% for i in articles %}
+		{% if i['timeOfApproval'] != 0 and (index % 2) != 0 %}
+		<div class="row article-container">
+			<div class="col-md-4 remove-padding">
+				<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+					<img class="img-responsive" src="{{i['img_url']}}"></img>
+					<p class="category-overlay">{{i['articleCategory']}}</p>
+				</a>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+							<h3 class="article-title">{{i['tag_line']}}</h3>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<p class="author-margin">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% set index = index + 1 %}
+		{% else %}
+		{% set index = index + 1 %}
+		{% endif %}
+		{% endfor %}
+	</div>
+	<div class="col-md-6">
+		{% for i in articles %}
+		{% if i['timeOfApproval'] != 0 and index % 2 == 0 %}
+		<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+			<div class="row article-container">
+				<div class="col-md-4 remove-padding">
+					<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+						<img class="img-responsive" src="{{i['img_url']}}"></img>
+						<p class="category-overlay">{{i['articleCategory']}}</p>
+					</a>
+				</div>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-12">
+							<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+								<h3 class="article-title">{{i['tag_line']}}</h3>
+							</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<p class="author-margin">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% set index = index + 1 %}
+		{% else %}
+		{% set index = index + 1 %}
+		{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+<!--Small Layout-->
+<div class="row visible-sm">
+	<div class="col-sm-2">
+	</div>
+	<div class="col-sm-8">
+		{% for i in articles %}
+		{% if i['timeOfApproval'] != 0 %}
+		<div class="row article-container">
+			<div class="col-sm-4 remove-padding">
+				<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
+					<img class="img-responsive" src="{{i['img_url']}}"></img>
+				</a>
+			</div>
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2 class="article-title">{{i['tag_line']}}</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+</div>
+
+<!--Extra Small Layout-->
+<div class="row visible-xs">
+	<div class="col-xs-6">
+		{% set index = 1 %}
+		{% for i in articles %}
+		{% if i['timeOfApproval'] != 0 and (index % 2) != 0 %}
+		<div class="row article-container">
+			<div clas="col-xs-12">
+				<div class="row">
+					<div class="col-xs-12 remove-padding">
+						<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+							<img class="img-responsive" src="{{i['img_url']}}"></img>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<h2 class="article-title small-padding">{{i['tag_line']}}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% set index = index + 1 %}
+		{% else %}
+		{% set index = index + 1 %}
+		{% endif %}
+		{% endfor %}
+	</div>
+	<div class="col-xs-6">
+		{% for i in articles %}
+		{% if i['timeOfApproval'] != 0 and index % 2 == 0 %}
+		<div class="row article-container">
+			<div clas="col-xs-12">
+				<div class="row">
+					<div class="col-xs-12 remove-padding">
+						<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['tag_line'])}}">
+							<img class="img-responsive" src="{{i['img_url']}}"></img>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<h2 class="article-title small-padding">{{i['tag_line']}}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% set index = index + 1 %}
+		{% else %}
+		{% set index = index + 1 %}
+		{% endif %}
+		{% endfor %}
+	</div>
+</div>
+<a href="{{ url_for('pagination', page_number=2, last_article_date=articles[-1]['timeOfApproval'])}}">Next Page</a>
+
+{% endblock %}
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,400' rel='stylesheet' type='text/css'>
+	<link rel=stylesheet href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+	<link rel=stylesheet href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+	<div class="nav visible-md visible-lg">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">LOGO</div>
+				<div class="col-md-1"><span class="nav-item">Movies</span></div>
+				<div class="col-md-1"><span class="nav-item">Gaming</span></div>
+				<div class="col-md-1"><span class="nav-item">News</span></div>
+				<div class="col-md-1"><span class="nav-item">Culture</span></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="nav visible-sm visible-xs">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-3">LOGO</div>
+				<div class="col-xs-2"><span class="nav-item">Movies</span></div>
+				<div class="col-xs-2"><span class="nav-item">Gaming</span></div>
+				<div class="col-xs-2"><span class="nav-item">News</span></div>
+				<div class="col-xs-2"><span class="nav-item">Culture</span></div>
+			</div>
+		</div>
+	</div>
+
+<div class="container">
+<div class="divider"></div>
+
+{% block content %}
+
+{% endblock %}
+
+</div>
+</body>
+</html>

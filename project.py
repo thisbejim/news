@@ -46,7 +46,7 @@ def index():
 
     # add time difference and urlsafe tag_line
     results = prep(results)
-
+    
     # get popular articles
     popular_articles = db.sort_by_last('articles', 'clicks', 0, 5, None)
     popular_articles = prep(popular_articles)
