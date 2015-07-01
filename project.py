@@ -67,7 +67,7 @@ def article(article_id, article_tag_line):
 
     # get article
     one_article = db.one('articles', article_id, None)
-
+    one_article = prep(one_article)
     # count and add clicks
     clicks = None
     for i in one_article:

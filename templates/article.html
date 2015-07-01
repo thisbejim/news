@@ -5,12 +5,24 @@
 	<div class="col-md-12">
 		{% for i in article %}
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6 col-md-offset-3">
+				<h2 class="single-article-title remove-margin">{{i['tag_line']}}</h2>
+				<p class="time-and-author">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
+				<i class="fa fa-facebook"></i>
+				<i class="fa fa-twitter"></i>
+				<i class="fa fa-reddit"></i>
+				<i class="fa fa-google-plus"></i>
+				<i class="fa fa-linkedin"></i>
+				<hr class="remove-margin-top">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
 				<img class="img-responsive" src="{{i['img_url']}}"></img>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6 col-md-offset-3">
 				<p>{{i['body_text']}}</p>
 			</div>
 		</div>
@@ -18,6 +30,8 @@
 	</div>
 </div>
 {% for i in article %}
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
 <div id="disqus_thread"></div>
 <script type="text/javascript">
 	/* * * CONFIGURATION VARIABLES * * */
@@ -33,6 +47,8 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 {% endfor %}
+	</div>
+</div>
 </div>
 
 {% endblock %}
