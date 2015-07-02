@@ -12,6 +12,12 @@
 	<meta property="og:url" content="http://localhost:5000/article/{{i['id']}}/{{i['tag_line']}}"/>
 	<meta property="og:image" content="{{i['img_url']}}"/>
 	<meta property="og:site_name" content="News-Front"/>
+
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@news-front" />
+	<meta name="twitter:title" content="{{i['tag_line']}}" />
+	<meta name="twitter:image" content="{{i['img_url']}}" />
+	<meta name="twitter:url" content="https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}" />
 	{% endfor %}
 {% endblock %}
 
@@ -23,8 +29,8 @@
 			<div class="col-md-6 col-md-offset-3">
 				<h2 class="single-article-title remove-margin">{{i['tag_line']}}</h2>
 				<p class="time-and-author">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
-				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}%2description={{i['tag_line']}}" ><i class="fa fa-facebook"></i></a>
-				<a  href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=http://localhost:5000/article/{{i['id']}}/{{i['tag_line']}}"><i class="fa fa-twitter"></i></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}" ><i class="fa fa-facebook"></i></a>
+				<a  href="https://twitter.com/intent/tweet?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><i class="fa fa-twitter"></i></a>
 				<i class="fa fa-reddit"></i>
 				<i class="fa fa-google-plus"></i>
 				<i class="fa fa-linkedin"></i>
