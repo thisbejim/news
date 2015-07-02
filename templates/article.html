@@ -36,12 +36,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
+				<!--Hideousness formatting required to remove space between inline-block elements-->
 				<div class="social-box">
-				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="facebook"><i class="fa fa-facebook"></i></div></a>
-				<a href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="twitter"><i class="fa fa-twitter"></i></div></a>
-				<a href="http://www.reddit.com/submit?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}&title={{i['tag_line']}}"><div class="reddit"><i class="fa fa-reddit"></i></div></a>
-				<a href="https://plus.google.com/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="google-plus"><i class="fa fa-google-plus"></i></div></a>
-				<a href="https://www.linkedin.com/cws/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="linkedin"><i class="fa fa-linkedin"></i></div></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}"><div class="facebook"><i class="fa fa-facebook"></i></div></a><a href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}"><div class="twitter"><i class="fa fa-twitter"></i></div></a><a href="http://www.reddit.com/submit?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}&title={{i['tag_line']}}"><div class="reddit"><i class="fa fa-reddit"></i></div></a><a href="https://plus.google.com/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}"><div class="google-plus"><i class="fa fa-google-plus"></i></div></a><a href="https://www.linkedin.com/cws/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}"><div class="linkedin"><i class="fa fa-linkedin"></i></div></a>
 				</div>
 			</div>
 		</div>
