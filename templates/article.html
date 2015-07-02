@@ -9,6 +9,7 @@
 	{{ super() }}
 	<meta property="og:title" content="{{i['tag_line']}}"/>
 	<meta property="og:type" content="article"/>
+	<meta property="og:url" content="http://localhost:5000/article/{{i['id']}}/{{i['tag_line']}}"/>
 	<meta property="og:image" content="{{i['img_url']}}"/>
 	<meta property="og:site_name" content="News-Front"/>
 	{% endfor %}

@@ -5,8 +5,8 @@
 	{% block head %}
 	<title>{% block title %}{% endblock %}</title>
 	{% endblock %}
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:500,300,400">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/font.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 </head>
