@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}{{ super() }} Homepage{% endblock %}
+{% block title %}
+	{{ super() }} Homepage
+{% endblock %}
+
 {% block head %}
-  {{ super() }}
-  <meta property="og:title" content="The Rock"/>
+	{% for i in article %}
+	{{ super() }}
+	<meta property="og:title" content="{{i['tag_line']}}"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:image" content="{{i['img_url']}}"/>
+	<meta property="og:site_name" content="News-Front"/>
+	{% endfor %}
 {% endblock %}
 
 {% block content %}
