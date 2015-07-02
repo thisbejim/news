@@ -13,11 +13,11 @@
 	<meta property="og:image" content="{{i['img_url']}}"/>
 	<meta property="og:site_name" content="News-Front"/>
 
-	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content="@news-front" />
 	<meta name="twitter:title" content="{{i['tag_line']}}" />
 	<meta name="twitter:image" content="{{i['img_url']}}" />
-	<meta name="twitter:description" content="" />
+	<meta name="twitter:description" content="{{i['body_text']}}" />
 	<meta name="twitter:url" content="https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}" />
 	{% endfor %}
 {% endblock %}
