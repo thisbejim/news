@@ -1,0 +1,3 @@
+Flask==0.10.1
+pyrebase==0.2.932
+gunicorn==19.2.1

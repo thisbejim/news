@@ -1,6 +1,12 @@
 {% extends "base.html" %}
-{% block content %}
 
+{% block title %}{{ super() }} Homepage{% endblock %}
+{% block head %}
+  {{ super() }}
+  <meta property="og:title" content="The Rock"/>
+{% endblock %}
+
+{% block content %}
 <div class="row">
 	<div class="col-md-12">
 		{% for i in article %}
@@ -8,8 +14,8 @@
 			<div class="col-md-6 col-md-offset-3">
 				<h2 class="single-article-title remove-margin">{{i['tag_line']}}</h2>
 				<p class="time-and-author">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
-				<i class="fa fa-facebook"></i>
-				<i class="fa fa-twitter"></i>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:5000/article/{{i['id']}}/{{i['tag_line']}}%2description={{i['tag_line']}}" ><i class="fa fa-facebook"></i></a>
+				<a  href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=http://localhost:5000/article/{{i['id']}}/{{i['tag_line']}}"><i class="fa fa-twitter"></i></a>
 				<i class="fa fa-reddit"></i>
 				<i class="fa fa-google-plus"></i>
 				<i class="fa fa-linkedin"></i>
