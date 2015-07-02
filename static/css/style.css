@@ -1,15 +1,14 @@
 /* Base Styling */
 
 body {
-	background-color: #f1f1f1;
 	font-family: 'Roboto', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
-	color: #616161;
+	color: #212121;
 }
 
 a {
-	color: #616161;
+	color: #212121;
 }
 
 a:hover {
@@ -102,16 +101,29 @@ hr {
 	max-height: 55px;
 }
 
+.article-body {
+	white-space: pre-line;
+	font-weight: 400;
+}
+
+.article-body a {
+	color: #ff6c49;
+}
+
+.article-body a:hover {
+	color: #4fc3f7;
+}
+
 .single-article-title {
 	font-weight: 300;
 }
 
 .article-title:hover {
-	color: #FF6C49;
+	color: #ff6c49;
 }
 
 .article-author {
-	color: #FF6C49;
+	color: #ff6c49;
 }
 
 .time-and-author {
@@ -130,6 +142,13 @@ hr {
 	-moz-transition: box-shadow 0.2s ease-out;
 	-o-transition: box-shadow 0.2s ease-out;
 	transition: box-shadow 0.2s ease-out;
+}
+
+.featured-article-title {
+	font-weight: 300;
+	height: 55px;
+	max-height: 55px;
+	margin-top: 10px;
 }
 
 /* Captions */
@@ -175,4 +194,55 @@ hr {
 	-moz-transition: background-color 0.2s ease-out;
 	-o-transition: background-color 0.2s ease-out;
 	transition: background-color 0.2s ease-out;
+}
+
+/* Social */
+
+.social-box {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.social-box a {
+	color: azure;
+}
+
+.facebook {
+	width: 19%;
+	height: 30px;
+	background-color: #3b5998;
+	display: inline-block;
+	padding: 5px;
+}
+
+.twitter {
+	width: 19%;
+	height: 30px;
+	background-color: #6CADDE;
+	display: inline-block;
+	padding: 5px;
+}
+
+.reddit {
+	width: 19%;
+	height: 30px;
+	background-color: #336699;
+	display: inline-block;
+	padding: 5px;
+}
+
+.google-plus {
+	width: 19%;
+	height: 30px;
+	background-color: #d34836;
+	display: inline-block;
+	padding: 5px;
+}
+
+.linkedin {
+	width: 19%;
+	height: 30px;
+	background-color: #0077b5;
+	display: inline-block;
+	padding: 5px;
 }

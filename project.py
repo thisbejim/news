@@ -1,6 +1,6 @@
 import sys
 import os
-from flask import Flask, render_template, g, request, redirect, url_for, flash, jsonify, session, Response
+from flask import Flask, render_template, Markup
 import logging
 import pyrebase
 import time
@@ -47,6 +47,8 @@ def index():
     # get featured article
     featured_article_one = popular_articles[0]
     featured_article_two = popular_articles[1]
+
+
 
     # remove featured article from popular articles
     del popular_articles[0]
@@ -110,6 +112,8 @@ def prep(results):
         url_safe = i['tag_line']
         url_safe = ''.join(e for e in url_safe if e.isalnum())
         i['url_safe'] = url_safe
+
+        i['body_text_escaped'] = Markup(i['body_text'])
 
         # add time difference
         time_dif = time_now - i['timeOfApproval']

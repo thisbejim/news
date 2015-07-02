@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block title %}
-	{{ super() }} Homepage
+	{% for i in article %}
+	{{ super() }} {{i['tag_line']}}
+	{% endfor %}
 {% endblock %}
 
 {% block head %}
@@ -27,25 +29,35 @@
 	<div class="col-md-12">
 		{% for i in article %}
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-8 col-md-offset-2">
 				<h2 class="single-article-title remove-margin">{{i['tag_line']}}</h2>
 				<p class="time-and-author">{{i['timeDif']}} by <span class="article-author">{{i['author']}}.</span></p>
-				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}" ><i class="fa fa-facebook"></i></a>
-				<a  href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><i class="fa fa-twitter"></i></a>
-				<i class="fa fa-reddit"></i>
-				<i class="fa fa-google-plus"></i>
-				<i class="fa fa-linkedin"></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="social-box">
+				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="facebook"><i class="fa fa-facebook"></i></div></a>
+				<a href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="twitter"><i class="fa fa-twitter"></i></div></a>
+				<a href="http://www.reddit.com/submit?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}&title={{i['tag_line']}}"><div class="reddit"><i class="fa fa-reddit"></i></div></a>
+				<a href="https://plus.google.com/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="google-plus"><i class="fa fa-google-plus"></i></div></a>
+				<a href="https://www.linkedin.com/cws/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['tag_line']}}"><div class="linkedin"><i class="fa fa-linkedin"></i></div></a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
 				<hr class="remove-margin-top">
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<img class="img-responsive" src="{{i['img_url']}}"></img>
+			<div class="col-md-8 col-md-offset-2">
+				<img class="img-responsive center-block" src="{{i['img_url']}}"></img>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<p>{{i['body_text']}}</p>
+			<div class="col-md-8 col-md-offset-2">
+				<p class="article-body" style="font-size: 18px;">{{i['body_text_escaped']}}</p>
 			</div>
 		</div>
 		{% endfor %}
@@ -53,7 +65,7 @@
 </div>
 {% for i in article %}
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-8 col-md-offset-2">
 <div id="disqus_thread"></div>
 <script type="text/javascript">
 	/* * * CONFIGURATION VARIABLES * * */

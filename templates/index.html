@@ -21,14 +21,15 @@
 			<div class="col-md-4 remove-padding">
 				<a href="{{ url_for('article', article_id=i['id'], article_tag_line=i['url_safe'])}}">
 					<img class="img-responsive" width="90" height="90" src="{{i['img_url']}}"></img>
-				</a>
+				
 			</div>
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
-						<h2 class="article-title">{{i['tag_line']}}</h2>
+						<h3 class="featured-article-title">{{i['tag_line']}}</h3>
 					</div>
 				</div>
+				</a>
 			</div>
 		</div>
 		{% endfor %}
