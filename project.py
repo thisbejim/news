@@ -2,14 +2,8 @@ import sys
 import os
 from flask import Flask, render_template, g, request, redirect, url_for, flash, jsonify, session, Response
 import logging
-from operator import itemgetter
-from collections import OrderedDict
-import requests
 import pyrebase
-import json
-import datetime
 import time
-import oauthlib
 
 # App Config
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
