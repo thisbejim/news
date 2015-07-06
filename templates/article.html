@@ -38,7 +38,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<!--Hideousness formatting required to remove space between inline-block elements-->
 				<div class="social-box">
-				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('fShares')"><div class="facebook"><i class="fa fa-facebook"></i></div></a><a href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('tShares')"><div class="twitter"><i class="fa fa-twitter"></i></div></a><a href="http://www.reddit.com/submit?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}&title={{i['tag_line']}}" target="_blank" onclick="shared('rShares')"><div class="reddit"><i class="fa fa-reddit"></i></div></a><a href="https://plus.google.com/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('gShares')"><div class="google-plus"><i class="fa fa-google-plus"></i></div></a><a href="https://www.linkedin.com/cws/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('lShares')"><div class="linkedin"><i class="fa fa-linkedin"></i></div></a>
+				<a href="https://www.facebook.com/sharer/sharer.php?u=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('fShares')"><div class="facebook"><i class="fa fa-facebook"><span class="social-shared">{{i['fShares']}}</span></i></div></a><a href="https://twitter.com/intent/tweet?text={{i['tag_line']}}&url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('tShares')"><div class="twitter"><i class="fa fa-twitter"><span class="social-shared">{{i['tShares']}}</span></i></div></a><a href="http://www.reddit.com/submit?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}&title={{i['tag_line']}}" target="_blank" onclick="shared('rShares')"><div class="reddit"><i class="fa fa-reddit"><span class="social-shared">{{i['rShares']}}</span></i></div></a><a href="https://plus.google.com/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('gShares')"><div class="google-plus"><i class="fa fa-google-plus"><span class="social-shared">{{i['gShares']}}</span></i></div></a><a href="https://www.linkedin.com/cws/share?url=https://news-front.herokuapp.com/article/{{i['id']}}/{{i['url_safe']}}" target="_blank" onclick="shared('lShares')"><div class="linkedin"><i class="fa fa-linkedin"><span class="social-shared">{{i['lShares']}}</span></i></div></a>
 				</div>
 			</div>
 		</div>
@@ -89,19 +89,19 @@ function shared(provider) {
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	switch(provider){
 		case 'fShares':
-			xmlhttp.send("article_id={{i['id']}}&provider='fShares'&shares={{i['fShares']}}");
+			xmlhttp.send('article_id={{i["id"]}}&provider="fShares"&shares={{i["fShares"]}}');
 			break;
 		case 'tShares':
-			xmlhttp.send("article_id={{i['id']}}&provider='tShares'&shares={{i['tShares']}}");
+			xmlhttp.send('article_id={{i["id"]}}&provider="tShares"&shares={{i["tShares"]}}');
 			break;
 		case 'gShares':
-			xmlhttp.send("article_id={{i['id']}}&provider='gShares'&shares={{i['gShares']}}");
+			xmlhttp.send('article_id={{i["id"]}}&provider="gShares"&shares={{i["gShares"]}}');
 			break;
 		case 'lShares':
-			xmlhttp.send("article_id={{i['id']}}&provider='lShares'&shares={{i['lShares']}}");
+			xmlhttp.send('article_id={{i["id"]}}&provider="lShares"&shares={{i["lShares"]}}');
 			break;
 		case 'rShares':
-			xmlhttp.send("article_id={{i['id']}}&provider='rShares'&shares={{i['rShares']}}");
+			xmlhttp.send('article_id={{i["id"]}}&provider="rShares"&shares={{i["rShares"]}}');
 			break;
 		default:
 			break;

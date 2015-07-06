@@ -103,8 +103,10 @@ def share():
     if request.method == 'POST':
         if request.form['article_id'] and request.form['provider'] and request.form['shares']:
             shares = int(request.form['shares']) + 1
-            shares = '{0}"{1}": {2} {3}'.format('{', request.form['provider'], shares, '}')
+            shares = '{0}{1}: {2} {3}'.format('{', request.form['provider'], shares, '}')
+            print(shares)
             yo = db.patch('articles', request.form['article_id'], shares, None)
+            print(yo)
             return '200'
         else:
             return '500'
