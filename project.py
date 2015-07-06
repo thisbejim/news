@@ -1,6 +1,6 @@
 import sys
 import os
-from flask import Flask, render_template, Markup
+from flask import Flask, render_template, Markup, request
 import logging
 import pyrebase
 import time
@@ -24,7 +24,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'super secret key'
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
-
 app.config['SITE'] = "http://0.0.0.0:5000/"
 app.config['DEBUG'] = True
 
@@ -48,14 +47,17 @@ def index():
     featured_article_one = popular_articles[0]
     featured_article_two = popular_articles[1]
 
-
-
     # remove featured article from popular articles
     del popular_articles[0]
     del popular_articles[0]
 
+    count = 0
+    for i in results:
+        count += 1
+
     return render_template('index.html', articles=results, popular_articles=popular_articles,
-                           featured_article_one=featured_article_one, featured_article_two=featured_article_two)
+                           featured_article_one=featured_article_one, featured_article_two=featured_article_two,
+                           article_count=count)
 
 
 @app.route('/article/<article_id>/<article_tag_line>')
@@ -96,18 +98,27 @@ def pagination(page_number, last_article_date):
     return render_template('index.html', articles=results, popular_articles=popular_articles,
                            featured_article=featured_article)
 
+@app.route('/share', methods=['POST'])
+def share():
+    if request.method == 'POST':
+        if request.form['article_id'] and request.form['provider'] and request.form['shares']:
+            shares = int(request.form['shares']) + 1
+            shares = '{0}"{1}": {2} {3}'.format('{', request.form['provider'], shares, '}')
+            yo = db.patch('articles', request.form['article_id'], shares, None)
+            return '200'
+        else:
+            return '500'
+    return '200'
 
 @app.template_filter('debug')
 def debug(text):
     print(text)
     return ''
 
-
 def prep(results):
     time_now = time.time() * 1000
     time_now = int(time_now)
     for i in results:
-
         # add url safe tag_line
         url_safe = i['tag_line']
         url_safe = ''.join(e for e in url_safe if e.isalnum())
